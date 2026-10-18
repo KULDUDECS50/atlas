@@ -67,7 +67,7 @@ function DashboardContent() {
   useEffect(() => {
     const textarea = textareaRef.current;
     if (textarea) {
-      textarea.style.height = 'auto';
+      textarea.style.height = "auto";
       textarea.style.height = `${Math.max(120, textarea.scrollHeight)}px`;
     }
   }, [searchText]);
@@ -294,9 +294,7 @@ function DashboardContent() {
                   </div>
                 </div>
 
-                {error ? (
-                  null
-                ) : (
+                {error ? null : (
                   <div className="mx-auto w-full max-w-5xl">
                     <div className="grid grid-cols-2 gap-4">
                       {papers.map((paper) => (
@@ -339,18 +337,20 @@ function DashboardContent() {
 
 export default function Page() {
   return (
-    <Suspense fallback={
-      <ProtectedRoute>
-        <SidebarProvider>
-          <AppSidebar />
-          <SidebarInset>
-            <div className="flex h-full items-center justify-center">
-              <Loader2 className="h-6 w-6 animate-spin" />
-            </div>
-          </SidebarInset>
-        </SidebarProvider>
-      </ProtectedRoute>
-    }>
+    <Suspense
+      fallback={
+        <ProtectedRoute>
+          <SidebarProvider>
+            <AppSidebar />
+            <SidebarInset>
+              <div className="flex h-full items-center justify-center">
+                <Loader2 className="h-6 w-6 animate-spin" />
+              </div>
+            </SidebarInset>
+          </SidebarProvider>
+        </ProtectedRoute>
+      }
+    >
       <DashboardContent />
     </Suspense>
   );

@@ -75,9 +75,13 @@ export function PaperAnalysisModal({
 }: PaperAnalysisModalProps) {
   const { projects } = useProjects();
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(
+    null
+  );
   const [updatingProject, setUpdatingProject] = useState(false);
-  const [fetchedAnalysisId, setFetchedAnalysisId] = useState<string | null>(null);
+  const [fetchedAnalysisId, setFetchedAnalysisId] = useState<string | null>(
+    null
+  );
   const { toast } = useToast();
 
   // Use the provided analysisId if available, otherwise use the fetched one
@@ -240,7 +244,8 @@ export function PaperAnalysisModal({
                         <div className="text-center">
                           <p className="text-sm font-medium">No projects yet</p>
                           <p className="text-xs text-muted-foreground">
-                            Create your first project to start organizing your research.
+                            Create your first project to start organizing your
+                            research.
                           </p>
                         </div>
                       </div>

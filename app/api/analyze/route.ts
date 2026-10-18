@@ -3,17 +3,24 @@ import OpenAI from "openai";
 import { Paper } from "@/types/paper";
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY || "",
 });
 
 export async function POST(request: Request) {
   try {
-    const paper: Paper = await request.json();
+    const paper: Partial<Paper> = await request.json(); // Use Partial to prevent runtime errors
+
+    // Validate required fields
+    if (!paper.title || !paper.abstract || !Array.isArray(paper.authors)) {
+      throw new Error("Invalid paper data");
+    }
+
+    const authors = paper.authors?.map((a) => a.name).join(", ") || "Unknown";
 
     const prompt = `Analyze the following research paper:
 Title: ${paper.title}
-Authors: ${paper.authors.map((a) => a.name).join(", ")}
-Year: ${paper.year}
+Authors: ${authors}
+Year: ${paper.year || "Unknown"}
 Abstract: ${paper.abstract}
 
 Please provide a comprehensive analysis including:
@@ -52,15 +59,16 @@ Format the response as JSON with the following structure:
       response_format: { type: "json_object" },
     });
 
-    const content = response.choices[0].message.content;
-    if (!content) throw new Error("No response content");
+    const choice = response.choices?.[0]?.message?.content;
+    if (!choice) throw new Error("No response content");
 
-    const analysis = JSON.parse(content);
+    const analysis = typeof choice === "string" ? JSON.parse(choice) : choice;
+
     return NextResponse.json(analysis);
   } catch (error) {
     console.error("Analysis error:", error);
     return NextResponse.json(
-      { error: "Failed to analyze paper" },
+      { error: "Failed to analyze paper" + error },
       { status: 500 }
     );
   }

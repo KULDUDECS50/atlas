@@ -36,7 +36,7 @@ export default function TermsPage() {
               2. Description of Service
             </h2>
             <p>
-              Atlas provides research paper analysis and organization tools,
+              Dossier provides research paper analysis and organization tools,
               including but not limited to:
             </p>
             <ul className="list-disc pl-6 mb-4">

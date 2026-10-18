@@ -110,7 +110,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <Globe className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left text-lg leading-tight">
-                  <span className="truncate font-semibold">Atlas</span>
+                  <span className="truncate font-semibold">Dossier</span>
                 </div>
               </div>
             </SidebarMenuButton>
